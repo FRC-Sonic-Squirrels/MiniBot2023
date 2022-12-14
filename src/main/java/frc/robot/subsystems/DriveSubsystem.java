@@ -27,11 +27,11 @@ public class DriveSubsystem extends SubsystemBase {
    * drivetrain should come through public methods like the tankDrive() function.
    */
 
-  private static CANSparkMax leftNEO;
-  private static CANSparkMax rightNEO;
-  private static MotorController leftSide;
-  private static MotorController rightSide;
-  private static DifferentialDrive drive;
+  private CANSparkMax leftNEO;
+  private CANSparkMax rightNEO;
+  private MotorController leftSide;
+  private MotorController rightSide;
+  private DifferentialDrive drive;
 
   public DriveSubsystem() {
     leftNEO = new CANSparkMax(Constants.DriveConstants.LEFT_NEO_CANID, MotorType.kBrushless);

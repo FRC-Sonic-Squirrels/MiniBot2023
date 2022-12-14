@@ -32,7 +32,7 @@ public class RobotContainer {
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
-  private static XboxController m_driveController = new XboxController(DriveConstants.DRIVECONTROLLER_ID);
+  private XboxController m_driveController = new XboxController(DriveConstants.DRIVECONTROLLER_ID);
 
   public RobotContainer() {
     // Configure the button bindings

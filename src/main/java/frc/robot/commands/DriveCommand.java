@@ -7,16 +7,21 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 
+/**
+ * An example command that uses an example subsystem.
+ */
 public class DriveCommand extends CommandBase {
   private DriveSubsystem m_driveSubsystem;
   private XboxController m_driveController;
 
   /**
-   * Creates a new DriveCommand.
+   * Creates a new ExampleCommand.
+   *
+   * @param subsystem The subsystem used by this command.
    */
   public DriveCommand(DriveSubsystem driveSubsystem, XboxController driveController) {
     m_driveSubsystem = driveSubsystem;

@@ -9,9 +9,13 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.button.Button;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.commands.DriveCommand;
+import frc.robot.commands.Spin;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.Spinner;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -23,16 +27,21 @@ import frc.robot.subsystems.DriveSubsystem;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
+  private final Spinner m_spinner = new Spinner();
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
-  public static XboxController m_driveController = new XboxController(DriveConstants.DRIVECONTROLLER_ID);
+  private static XboxController m_driveController = new XboxController(DriveConstants.DRIVECONTROLLER_ID);
 
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
+    
     m_driveSubsystem.setDefaultCommand(new DriveCommand(m_driveSubsystem, m_driveController));
+
+    // default spinner command is to stop spinning
+    m_spinner.setDefaultCommand(new InstantCommand(() -> m_spinner.setPercentOutput(0.0)));
   }
 
   /**
@@ -42,6 +51,8 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+
+    new Button(m_driveController::getRightBumperPressed).toggleWhenPressed(new Spin(m_spinner));
 
   }
 

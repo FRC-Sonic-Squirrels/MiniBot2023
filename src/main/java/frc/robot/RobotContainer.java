@@ -26,8 +26,8 @@ import frc.robot.subsystems.Spinner;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
-  private final Spinner m_spinner = new Spinner();
+  private final DriveSubsystem driveSubsystem = new DriveSubsystem();
+  private final Spinner spinner = new Spinner();
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -41,10 +41,10 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
     
-    m_driveSubsystem.setDefaultCommand(new DriveCommand(m_driveSubsystem, controller));
+    driveSubsystem.setDefaultCommand(new DriveCommand(driveSubsystem, controller));
 
     // default spinner command is to stop spinning
-    m_spinner.setDefaultCommand(new InstantCommand(() -> m_spinner.setPercentOutput(0.0)));
+    spinner.setDefaultCommand(new InstantCommand(() -> spinner.setPercentOutput(0.0)));
   }
 
   /**
@@ -55,8 +55,9 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
 
-    spinnerButton.onTrue(new Spin(m_spinner));
-    spinnerButton.onFalse(new InstantCommand(() -> m_spinner.setPercentOutput(0.0)));
+    // spine while holding spinner button down
+    spinnerButton.onTrue(new Spin(spinner));
+    spinnerButton.onFalse(new InstantCommand(() -> spinner.setPercentOutput(0.0)));
 
   }
 
@@ -69,6 +70,6 @@ public class RobotContainer {
    */
   /*public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    //return m_autoCommand;
+    //return autoCommand;
   }*/
 }

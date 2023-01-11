@@ -9,17 +9,17 @@ import frc.robot.subsystems.Spinner;
 
 public class Spin extends CommandBase {
   /** Creates a new Spin. */
-  private Spinner m_spinner;
+  private Spinner spinner;
 
   public Spin(Spinner spinner) {
-    m_spinner = spinner;
+    this.spinner = spinner;
     addRequirements(spinner);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_spinner.setPercentOutput(0.1);
+    spinner.setPercentOutput(0.1);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -29,7 +29,7 @@ public class Spin extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_spinner.setPercentOutput(0.0);
+    spinner.setPercentOutput(0.0);
   }
 
   // Returns true when the command should end.

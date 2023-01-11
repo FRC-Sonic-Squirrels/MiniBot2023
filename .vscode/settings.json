@@ -27,10 +27,20 @@
   ],
   "java.test.defaultConfig": "WPIlibUnitTests",
   "cSpell.words": [
+    "AHRS",
+    "auton",
+    "Brushless",
     "CANID",
     "DRIVECONTROLLER",
+    "Feedforward",
+    "Minibot",
+    "odometric",
+    "odometry",
+    "ramsete",
+    "Smartdashboard",
     "teleop",
     "teleoperated",
+    "Trackwidth",
     "wpilibj"
   ]
 }

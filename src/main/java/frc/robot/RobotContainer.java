@@ -10,7 +10,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.button.Button;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.Spin;
@@ -32,13 +32,16 @@ public class RobotContainer {
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
-  private XboxController m_driveController = new XboxController(DriveConstants.DRIVECONTROLLER_ID);
+  private XboxController controller = new XboxController(DriveConstants.DRIVECONTROLLER_ID);
+
+  private final JoystickButton spinnerButton =
+      new JoystickButton(controller, XboxController.Button.kRightBumper.value);
 
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
     
-    m_driveSubsystem.setDefaultCommand(new DriveCommand(m_driveSubsystem, m_driveController));
+    m_driveSubsystem.setDefaultCommand(new DriveCommand(m_driveSubsystem, controller));
 
     // default spinner command is to stop spinning
     m_spinner.setDefaultCommand(new InstantCommand(() -> m_spinner.setPercentOutput(0.0)));
@@ -52,7 +55,8 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
 
-    new Button(m_driveController::getRightBumperPressed).toggleWhenPressed(new Spin(m_spinner));
+    spinnerButton.onTrue(new Spin(m_spinner));
+    spinnerButton.onFalse(new InstantCommand(() -> m_spinner.setPercentOutput(0.0)));
 
   }
 

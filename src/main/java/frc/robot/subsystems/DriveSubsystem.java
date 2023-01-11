@@ -20,7 +20,8 @@ import static frc.robot.Constants.DriveConstants;
 import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import com.revrobotics.EncoderType;
+import com.revrobotics.SparkMaxRelativeEncoder.Type;
+import com.revrobotics.RelativeEncoder;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
@@ -51,15 +52,14 @@ public class DriveSubsystem extends SubsystemBase {
   private MotorController leftSide;
   private MotorController rightSide;
   private DifferentialDrive drive;
-  private CANEncoder m_leftEncoder;
-  private CANEncoder m_rightEncoder;
+  private RelativeEncoder leftEncoder;
+  private RelativeEncoder rightEncoder;
   private SimpleMotorFeedforward  feedforward = 
   new SimpleMotorFeedforward(ksVolts, kvVoltSecondsPerMeter, kaVoltSecondsSquaredPerMeter);
   private PIDController left_PIDController = new PIDController(kPDriveVel, 0.0, kDDriveVel);
   private PIDController right_PIDController =  new PIDController(kPDriveVel, 0.0, kDDriveVel);
 
   // The gyro sensor
-  // private final Gyro gyro = new ADXRS450_Gyro();
   private final AHRS gyro = new AHRS(SPI.Port.kMXP);
 
   // Odometry class for tracking robot pose
@@ -85,10 +85,10 @@ public class DriveSubsystem extends SubsystemBase {
     // create our DifferentialDrive class
     drive = new DifferentialDrive(leftSide, rightSide);
 
-    leftEncoder = leftNEO.getEncoder(EncoderType.kHallSensor, kEncoderCPR);
-    rightEncoder = rightNEO.getEncoder(EncoderType.kHallSensor, kEncoderCPR);
+    leftEncoder = leftNEO.getEncoder(Type.kHallSensor, kEncoderCPR);
+    rightEncoder = rightNEO.getEncoder(Type.kHallSensor, kEncoderCPR);
   
-    // set scaling factor for CANEncoder.getPosition() so that it matches the output of
+    // set scaling factor for RelativeEncoder.getPosition() so that it matches the output of
     // Encoder.getDistance() method.
     leftEncoder.setPositionConversionFactor(
         kDistancePerWheelRevolutionMeters * kGearReduction );
@@ -102,8 +102,7 @@ public class DriveSubsystem extends SubsystemBase {
         kDistancePerWheelRevolutionMeters * kGearReduction / (60.0));
 
     resetEncoders();
-    odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
-
+    odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()), 0.0, 0.0);
   }
   
   @Override
@@ -192,7 +191,7 @@ public class DriveSubsystem extends SubsystemBase {
    */
   public void resetOdometry(Pose2d pose) {
     resetEncoders();
-    odometry.resetPosition(pose, Rotation2d.fromDegrees(getHeading()));
+    odometry.resetPosition(Rotation2d.fromDegrees(getHeading()), 0.0, 0.0, pose);
   }
 
   public void arcadeDrive(double xSpeed, double zRotation) {
@@ -231,7 +230,7 @@ public class DriveSubsystem extends SubsystemBase {
    *
    * @return the left drive encoder
    */
-  public CANEncoder getLeftEncoder() {
+  public RelativeEncoder getLeftEncoder() {
     return leftEncoder;
   }
 
@@ -240,7 +239,7 @@ public class DriveSubsystem extends SubsystemBase {
    *
    * @return the right drive encoder
    */
-  public CANEncoder getRightEncoder() {
+  public RelativeEncoder getRightEncoder() {
     return rightEncoder;
   }
 

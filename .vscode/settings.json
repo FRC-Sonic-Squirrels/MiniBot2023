@@ -30,6 +30,7 @@
     "CANID",
     "DRIVECONTROLLER",
     "teleop",
-    "teleoperated"
+    "teleoperated",
+    "wpilibj"
   ]
 }

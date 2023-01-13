@@ -20,5 +20,8 @@ public final class Constants {
         public static final int LEFT_NEO_CANID = 2;
         public static final int RIGHT_NEO_CANID = 1;
         public static final int DRIVECONTROLLER_ID = 0;
+
+        public static final double FORWARDDODGE_SPD = 0.2;
+        public static final double BACKWARDDODGE_SPD = -0.2;
     }
 }

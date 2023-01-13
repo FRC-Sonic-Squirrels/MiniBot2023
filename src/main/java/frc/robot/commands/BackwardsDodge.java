@@ -7,6 +7,7 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.Constants;
 import frc.robot.subsystems.DriveSubsystem;
 
 public class BackwardsDodge extends CommandBase {
@@ -22,7 +23,7 @@ public class BackwardsDodge extends CommandBase {
 
   double BackwardsDodgeForInSeconds = Timer.getFPGATimestamp();
   double CommandLengthInSeconds = 0.5;
-  double BackSpeed = -1;
+  double BackSpeed = Constants.DriveConstants.BACKWARDDODGE_SPD;
 
   // Called when the command is initially scheduled.
   @Override

@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.Constants;
 
 public class RamAtFullSpeed extends CommandBase {
   private DriveSubsystem driveSubsystem;
@@ -23,7 +24,7 @@ public class RamAtFullSpeed extends CommandBase {
   // Called when the command is initially scheduled.
   double RamAtFullSpeedForInSeconds = Timer.getFPGATimestamp();
   double CommandLengthInSeconds = 0.5;
-  double RamSpeed = 1;
+  double RamSpeed = Constants.DriveConstants.FORWARDDODGE_SPD;
 
   @Override
   public void initialize() {

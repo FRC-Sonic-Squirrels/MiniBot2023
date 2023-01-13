@@ -37,7 +37,7 @@ public class DriveSubsystem extends SubsystemBase {
     leftNEO = new CANSparkMax(Constants.DriveConstants.LEFT_NEO_CANID, MotorType.kBrushless);
     rightNEO = new CANSparkMax(Constants.DriveConstants.RIGHT_NEO_CANID, MotorType.kBrushless);
    
-    // set all NEOs to factory defaults
+    // set all NEOs to factory defaults, dont want a previous deploy interfering.
     leftNEO.restoreFactoryDefaults();
     rightNEO.restoreFactoryDefaults();
 

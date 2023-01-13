@@ -27,7 +27,7 @@ public class DriveCommand extends CommandBase {
     this.driveSubsystem = driveSubsystem;
     this.driveController = driveController;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(driveSubsystem);
+    addRequirements(driveSubsystem); // Drive is required because its the only way we can interface with the motors from this command in a way thats easily controllable through a fucntion.
   }
 
   // Called when the command is initially scheduled.

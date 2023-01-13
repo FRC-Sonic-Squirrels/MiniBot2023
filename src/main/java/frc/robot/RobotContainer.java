@@ -63,20 +63,29 @@ public class RobotContainer {
     // spinnerButton.onTrue(new Spin(spinner));
     // spinnerButton.onFalse(new InstantCommand(() -> spinner.setPercentOutput(0.0)));
 
-    controller.rightBumper()
+    controller.leftBumper() // LB
+      .onTrue(null)
+      .onFalse(null);
+
+    controller.rightBumper() // RB
       .onTrue(new Spin(spinner))
       .onFalse(Commands.runOnce(() -> spinner.setPercentOutput(0.0), spinner));
 
-    controller.a()
-      .onTrue(new BackwardsDodge(driveSubsystem, controller));
-      /*
-    controller.b()
-      .onTrue(null);
-    controller.x()
-      .onTrue(null);
-      */
-    controller.y()
-      .onTrue(new RamAtFullSpeed(driveSubsystem, controller));
+    controller.a() // A
+      .onTrue(new BackwardsDodge(driveSubsystem, controller))
+      .onFalse(null);
+
+    controller.b() // B
+      .onTrue(null)
+      .onFalse(null);
+
+    controller.x() // X
+      .onTrue(null)
+      .onFalse(null);
+
+    controller.y() // Y
+      .onTrue(new RamAtFullSpeed(driveSubsystem, controller))
+      .onFalse(null);
   }
 
 

@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.commands.BackwardsDodge;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.RamAtFullSpeed;
 import frc.robot.commands.Spin;
@@ -68,11 +69,13 @@ public class RobotContainer {
       .onFalse(Commands.runOnce(() -> spinner.setPercentOutput(0.0), spinner));
 
     controller.a()
-      .onTrue(new RamAtFullSpeed(driveSubsystem, controller));
+      .onTrue(new BackwardsDodge(driveSubsystem, controller));
+      /*
     controller.b()
-      .onTrue(new RamAtFullSpeed(driveSubsystem, controller));
+      .onTrue(null);
     controller.x()
-      .onTrue(new RamAtFullSpeed(driveSubsystem, controller));
+      .onTrue(null);
+      */
     controller.y()
       .onTrue(new RamAtFullSpeed(driveSubsystem, controller));
   }

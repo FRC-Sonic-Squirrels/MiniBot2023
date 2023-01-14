@@ -1,0 +1,19 @@
+{
+  "NTProvider": {
+    "types": {
+      "/FMSInfo": "FMSInfo"
+    }
+  },
+  "NetworkTables Info": {
+    "Connections": {
+      "open": true
+    },
+    "Server": {
+      "Publishers": {
+        "open": true
+      },
+      "open": true
+    },
+    "visible": true
+  }
+}

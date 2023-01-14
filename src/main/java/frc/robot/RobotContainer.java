@@ -48,7 +48,7 @@ public class RobotContainer {
     driveSubsystem.setDefaultCommand(new DriveCommand(driveSubsystem, controller));
 
     // default spinner command is to stop spinning
-    spinner.setDefaultCommand(new InstantCommand(() -> spinner.setPercentOutput(0.0)));
+    spinner.setDefaultCommand(new InstantCommand(() -> spinner.setPercentOutput(0.0), spinner));
   }
 
   /**
@@ -63,18 +63,22 @@ public class RobotContainer {
     // spinnerButton.onTrue(new Spin(spinner));
     // spinnerButton.onFalse(new InstantCommand(() -> spinner.setPercentOutput(0.0)));
 
+
+    /*
     controller.leftBumper() // LB
       .onTrue(null)
       .onFalse(null);
+    */
 
     controller.rightBumper() // RB
       .onTrue(new Spin(spinner))
       .onFalse(Commands.runOnce(() -> spinner.setPercentOutput(0.0), spinner));
 
+    
     controller.a() // A
-      .onTrue(new BackwardsDodge(driveSubsystem, controller))
-      .onFalse(null);
+      .onTrue(new BackwardsDodge(driveSubsystem, controller));
 
+    /*
     controller.b() // B
       .onTrue(null)
       .onFalse(null);
@@ -82,10 +86,10 @@ public class RobotContainer {
     controller.x() // X
       .onTrue(null)
       .onFalse(null);
+    */
 
     controller.y() // Y
-      .onTrue(new RamAtFullSpeed(driveSubsystem, controller))
-      .onFalse(null);
+      .onTrue(new RamAtFullSpeed(driveSubsystem, controller));
   }
 
 

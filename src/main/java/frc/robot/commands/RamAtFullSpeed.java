@@ -23,7 +23,7 @@ public class RamAtFullSpeed extends CommandBase {
 
   // Called when the command is initially scheduled.
   double RamAtFullSpeedForInSeconds = Timer.getFPGATimestamp();
-  double CommandLengthInSeconds = 0.5;
+  double CommandLengthInSeconds = 0.2;
   double RamSpeed = Constants.DriveConstants.FORWARDDODGE_SPD;
 
   @Override

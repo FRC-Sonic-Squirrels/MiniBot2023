@@ -22,7 +22,7 @@ public class BackwardsDodge extends CommandBase {
   }
 
   double BackwardsDodgeForInSeconds = Timer.getFPGATimestamp();
-  double CommandLengthInSeconds = 0.5;
+  double CommandLengthInSeconds = 0.2;
   double BackSpeed = Constants.DriveConstants.BACKWARDDODGE_SPD;
 
   // Called when the command is initially scheduled.

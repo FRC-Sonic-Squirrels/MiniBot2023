@@ -16,6 +16,7 @@ import frc.robot.commands.DriveCommand;
 import frc.robot.commands.Spin;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.Spinner;
+import frc.robot.subsystems.blinkinSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -28,6 +29,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveSubsystem driveSubsystem = new DriveSubsystem();
   private final Spinner spinner = new Spinner();
+  private final blinkinSubsystem blinkinSubsystem = new blinkinSubsystem();
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -36,6 +38,18 @@ public class RobotContainer {
 
   private final JoystickButton spinnerButton =
       new JoystickButton(controller, XboxController.Button.kRightBumper.value);
+    private final JoystickButton XButton =
+      new JoystickButton(controller, XboxController.Button.kX.value);
+    private final JoystickButton YButton =
+      new JoystickButton(controller, XboxController.Button.kY.value);
+    private final JoystickButton AButton =
+      new JoystickButton(controller, XboxController.Button.kA.value);
+    private final JoystickButton BButton =
+      new JoystickButton(controller, XboxController.Button.kB.value);
+    private final JoystickButton StartButton =
+      new JoystickButton(controller, XboxController.Button.kStart.value);
+    private final JoystickButton BackButton =
+      new JoystickButton(controller, XboxController.Button.kBack.value);
 
   public RobotContainer() {
     // Configure the button bindings
@@ -58,6 +72,12 @@ public class RobotContainer {
     // spine while holding spinner button down
     spinnerButton.onTrue(new Spin(spinner));
     spinnerButton.onFalse(new InstantCommand(() -> spinner.setPercentOutput(0.0)));
+    XButton.onTrue(blinkinSubsystem.solidBlueCommand());
+    YButton.onTrue(blinkinSubsystem.solidRedCommand());
+    AButton.onTrue(blinkinSubsystem.flashingBlueCommand());
+    BButton.onTrue(blinkinSubsystem.strobeBlueCommand());
+    StartButton.onTrue(blinkinSubsystem.solidOrangeCommand());
+    BackButton.onTrue(blinkinSubsystem.offCommand());
 
   }
 

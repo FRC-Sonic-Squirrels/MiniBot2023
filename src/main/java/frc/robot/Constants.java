@@ -21,4 +21,7 @@ public final class Constants {
         public static final int RIGHT_NEO_CANID = 1;
         public static final int DRIVECONTROLLER_ID = 0;
     }
+    public static final class PWMPorts {
+        public static final int kBlinkin = 0;
+    }
 }

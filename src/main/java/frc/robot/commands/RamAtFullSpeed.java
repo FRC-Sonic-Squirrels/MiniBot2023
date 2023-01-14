@@ -53,7 +53,7 @@ public class RamAtFullSpeed extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (RamAtFullSpeedForInSeconds >= RamAtFullSpeedForInSeconds + CommandLengthInSeconds) {
+    if (Timer.getFPGATimestamp() - RamAtFullSpeedForInSeconds >= CommandLengthInSeconds) {
       return true;
     }
     else {

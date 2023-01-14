@@ -37,11 +37,11 @@ public class RamAtFullSpeed extends CommandBase {
   @Override
   public void execute() {
     if (TimesRan == 0) {
-      driveSubsystem.tankDrive(RamSpeed*.5, RamSpeed*.5);
+      driveSubsystem.arcadeDrive(-RamSpeed*.5, 0);
       TimesRan += 1;
     }
     else {
-      driveSubsystem.tankDrive(RamSpeed, RamSpeed);
+      driveSubsystem.arcadeDrive(-RamSpeed, 0);
       TimesRan += 1;
     }
   }

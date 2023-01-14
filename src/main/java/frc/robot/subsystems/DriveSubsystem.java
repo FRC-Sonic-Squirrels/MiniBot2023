@@ -16,6 +16,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 
 public class DriveSubsystem extends SubsystemBase {
   /**
@@ -45,7 +46,7 @@ public class DriveSubsystem extends SubsystemBase {
     leftSide = new MotorControllerGroup(leftNEO);
     rightSide = new MotorControllerGroup(rightNEO);
 
-    rightSide.setInverted(true);
+    leftSide.setInverted(true);
 
     // create our DifferentialDrive class
     drive = new DifferentialDrive(leftSide, rightSide);

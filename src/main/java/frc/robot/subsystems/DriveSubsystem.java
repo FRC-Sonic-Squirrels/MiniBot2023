@@ -55,6 +55,8 @@ public class DriveSubsystem extends SubsystemBase {
 
     // create our DifferentialDrive class
     drive = new DifferentialDrive(leftSide, rightSide);
+    m_pigeon.setAccumZAngle(0);
+    m_pigeon.reset();
   }
   
   @Override
@@ -92,6 +94,7 @@ public class DriveSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("GV Robot rotation X deg per sec", vector[0]);
         SmartDashboard.putNumber("GV Robot rotation Y deg per sec", vector[1]);
         SmartDashboard.putNumber("GV Robot rotation Z deg per sec", vector[2]);
+        
       }
 
       if (m_pigeon.getAccumGyro(vector) == ErrorCode.OK) {

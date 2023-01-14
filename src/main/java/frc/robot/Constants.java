@@ -23,5 +23,6 @@ public final class Constants {
 
         public static final double FORWARDDODGE_SPD = 0.4;
         public static final double BACKWARDDODGE_SPD = -0.4;
+        public static final double DRIVEMULTIPLIER_SAFETY = .5;
     }
 }

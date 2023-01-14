@@ -10,6 +10,7 @@ package frc.robot.commands;
 import frc.robot.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.Constants;
 
 /**
  * An example command that uses an example subsystem.
@@ -30,15 +31,18 @@ public class DriveCommand extends CommandBase {
     addRequirements(driveSubsystem); // Drive is required because its the only way we can interface with the motors from this command in a way thats easily controllable through a fucntion.
   }
 
+  double DRIVEMULTIPLIER_SAFETY = Constants.DriveConstants.DRIVEMULTIPLIER_SAFETY;
+
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    DRIVEMULTIPLIER_SAFETY = Constants.DriveConstants.DRIVEMULTIPLIER_SAFETY;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    driveSubsystem.arcadeDrive(driveController.getRightX()*1, driveController.getLeftY()*1);
+    driveSubsystem.arcadeDrive(driveController.getLeftY()*DRIVEMULTIPLIER_SAFETY, driveController.getRightX()*DRIVEMULTIPLIER_SAFETY);
   }
 
   // Called once the command ends or is interrupted.

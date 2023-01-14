@@ -73,6 +73,9 @@ public class RobotContainer {
     controller.rightBumper() // RB
       .onTrue(new Spin(spinner))
       .onFalse(Commands.runOnce(() -> spinner.setPercentOutput(0.0), spinner));
+
+    controller.y() // Y
+      .onTrue(new RamAtFullSpeed(driveSubsystem, controller));
   }
 
 

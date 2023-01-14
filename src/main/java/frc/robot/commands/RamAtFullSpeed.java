@@ -23,18 +23,26 @@ public class RamAtFullSpeed extends CommandBase {
 
   // Called when the command is initially scheduled.
   double RamAtFullSpeedForInSeconds = Timer.getFPGATimestamp();
-  double CommandLengthInSeconds = 0.2;
+  double CommandLengthInSeconds = 0.5;
   double RamSpeed = Constants.DriveConstants.FORWARDDODGE_SPD;
+  double TimesRan = 0;
 
   @Override
   public void initialize() {
     RamAtFullSpeedForInSeconds = Timer.getFPGATimestamp();
+    TimesRan = 0;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    driveSubsystem.arcadeDrive(RamSpeed, driveController.getRightX());
+    if (TimesRan == 0) {
+      driveSubsystem.tankDrive(RamSpeed*.5, RamSpeed*.5);
+      TimesRan = 1;
+    }
+    else {
+      driveSubsystem.tankDrive(RamSpeed, RamSpeed);
+    }
   }
 
   // Called once the command ends or is interrupted.

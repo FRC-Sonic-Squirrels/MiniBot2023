@@ -11,8 +11,10 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Button;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.commands.DriveCommand;
+import frc.robot.commands.DriveSetDistance;
 import frc.robot.commands.Spin;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.Spinner;
@@ -52,7 +54,10 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
 
-    new Button(m_driveController::getRightBumperPressed).toggleWhenPressed(new Spin(m_spinner));
+//    new Button(m_driveController::getRightBumperPressed).toggleWhenPressed(new Spin(m_spinner));
+    new JoystickButton(m_driveController, XboxController.Button.kRightBumper.value).onTrue(new Spin(m_spinner));
+    new JoystickButton(m_driveController, XboxController.Button.kLeftBumper.value).onTrue(new DriveSetDistance(m_driveSubsystem));
+
 
   }
 

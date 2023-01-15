@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -33,6 +34,12 @@ public class DriveSubsystem extends SubsystemBase {
   private MotorController rightSide;
   private DifferentialDrive drive;
 
+  private final RelativeEncoder m_lefEncoder;
+  private final RelativeEncoder m_righEncoder;
+
+  private final double GEAR_RATIO = 1.0/18.0;
+
+
   public DriveSubsystem() {
     leftNEO = new CANSparkMax(Constants.DriveConstants.LEFT_NEO_CANID, MotorType.kBrushless);
     rightNEO = new CANSparkMax(Constants.DriveConstants.RIGHT_NEO_CANID, MotorType.kBrushless);
@@ -47,6 +54,12 @@ public class DriveSubsystem extends SubsystemBase {
 
     // create our DifferentialDrive class
     drive = new DifferentialDrive(leftSide, rightSide);
+    m_lefEncoder = leftNEO.getEncoder();
+    m_righEncoder = rightNEO.getEncoder();
+
+
+
+
   }
   
   @Override
@@ -60,5 +73,11 @@ public class DriveSubsystem extends SubsystemBase {
 
   public void tankDrive(double leftSpeed, double rightSpeed) {
     drive.tankDrive(leftSpeed, rightSpeed);
+  }
+  public double getDistanceInInches() {
+    double REVELUTIONS_TO_INCHES = GEAR_RATIO * (6.0 * Math.PI);
+    double leftValue = m_lefEncoder.getPosition() * REVELUTIONS_TO_INCHES;
+    double rightValue = m_righEncoder.getPosition() * REVELUTIONS_TO_INCHES;
+    return (leftValue + rightValue) /2;
   }
 }

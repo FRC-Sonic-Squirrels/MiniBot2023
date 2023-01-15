@@ -16,6 +16,11 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+
+    public static final class DeviceConstants {
+        public static final int PIGEON2_CANID = 17;
+    }
+
     public static final class DriveConstants {
         public static final int LEFT_NEO_CANID = 2;
         public static final int RIGHT_NEO_CANID = 1;

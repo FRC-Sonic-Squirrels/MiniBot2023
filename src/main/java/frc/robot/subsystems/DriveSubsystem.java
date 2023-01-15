@@ -62,8 +62,8 @@ public class DriveSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     {
-      var ba = new short[3];
-      var vector = new double[3];
+      var ba = new short[3]; // Bias Accel
+      var vector = new double[3]; // Vector
 
       if (m_pigeon.getBiasedAccelerometer(ba) == ErrorCode.OK) {
         // vector towards the ground
@@ -89,6 +89,7 @@ public class DriveSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("GV Robot Pitch", vector[1]);
         SmartDashboard.putNumber("GV Robot Roll", vector[2]);
       }
+
       if (m_pigeon.getRawGyro(vector) == ErrorCode.OK) {
         // measured in degrees per second
         SmartDashboard.putNumber("GV Robot rotation X deg per sec", vector[0]);

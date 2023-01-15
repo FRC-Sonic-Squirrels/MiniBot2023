@@ -103,6 +103,10 @@ public class DriveSubsystem extends SubsystemBase {
         SmartDashboard.putNumber("GV Robot Accumulative rotation Y deg per sec", vector[1]);
         SmartDashboard.putNumber("GV Robot Accumulative rotation Z deg per sec", vector[2]);
       }
+
+      SmartDashboard.putNumber("pigeon getYaw", m_pigeon.getYaw());
+      SmartDashboard.putNumber("pigeon getRoll", m_pigeon.getRoll());
+      SmartDashboard.putNumber("pigeon getPitch", m_pigeon.getPitch());
     }
   }
 

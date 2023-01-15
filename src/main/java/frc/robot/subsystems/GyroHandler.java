@@ -12,45 +12,46 @@ import frc.robot.Constants;
 public class GyroHandler extends SubsystemBase {
   /** Creates a new GyroHandler. */
 
-  private WPI_Pigeon2 pigeon2 =
-    new WPI_Pigeon2(Constants.DeviceConstants.PIGEON2_CANID);
-    
-  public GyroHandler() {
+  private WPI_Pigeon2 pigeon2 = new WPI_Pigeon2(Constants.DeviceConstants.PIGEON2_CANID);
 
+  private short[] get_BiasedAccelerometerValues() {
+      var BiasedAccelerometerValues = new short[3];
+      pigeon2.getBiasedAccelerometer(BiasedAccelerometerValues);
+      return BiasedAccelerometerValues;
   }
+  
+  private double[] get_GravityVectorValues() {
+      var GravityVectorValues = new double[3];
+      pigeon2.getGravityVector(GravityVectorValues);
+      return GravityVectorValues;
+  }
+  
+  private double[] get_YawPitchRollValues() {
+      var YawPitchRollValues = new double[3];
+      pigeon2.getYawPitchRoll(YawPitchRollValues);
+      return YawPitchRollValues;
+  }
+  
+  private double[] get_RawGyroValues() {
+      var RawGyroValues = new double[3];
+      pigeon2.getRawGyro(RawGyroValues);
+      return RawGyroValues;
+  }
+  
+  private double[] get_AccumGyroValues() {
+      var AccumGyroValues = new double[3];
+      pigeon2.getAccumGyro(AccumGyroValues);
+      return AccumGyroValues;
+  }
+  
+  public GyroHandler() {}
 
   @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
+  public void periodic() {}
 
-  public short[] get_BiasedAccelerometerValues() {
-    var BiasedAccelerometerValues = new short[3];
-    pigeon2.getBiasedAccelerometer(BiasedAccelerometerValues);
-    return BiasedAccelerometerValues;
-  }
-
-  public double[] get_GravityVectorValues() {
-    var GravityVectorValues = new double[3];
-    pigeon2.getGravityVector(GravityVectorValues);
-    return GravityVectorValues;
-  }
-
-  public double[] get_YawPitchRollValues() {
-    var YawPitchRollValues = new double[3];
-    pigeon2.getYawPitchRoll(YawPitchRollValues);
-    return YawPitchRollValues;
-  }
-
-  public double[] get_RawGyroValues() {
-    var RawGyroValues = new double[3];
-    pigeon2.getRawGyro(RawGyroValues);
-    return RawGyroValues;
-  }
-
-  public double[] get_AccumGyroValues() {
-    var AccumGyroValues = new double[3];
-    pigeon2.getAccumGyro(AccumGyroValues);
-    return AccumGyroValues;
-  }
+  public short[] BiasedAccelerometerValues = get_BiasedAccelerometerValues();
+  public double[] GravityVectorValues = get_GravityVectorValues();
+  public double[] YawPitchRollValues = get_YawPitchRollValues();
+  public double[] RawGyroValues = get_RawGyroValues();
+  public double[] AccumGyroValues = get_AccumGyroValues();
 }

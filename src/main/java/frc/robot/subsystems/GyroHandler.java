@@ -17,22 +17,6 @@ public class GyroHandler extends SubsystemBase {
     
   public GyroHandler() {
 
-    /* DO NOT DELETE THIS I NEED THIS
-    var BiasedAccelerometerValues = new short[3];
-    pigeon2.getBiasedAccelerometer(BiasedAccelerometerValues);
-
-    var GravityVectorValues = new double[3];
-    pigeon2.getGravityVector(GravityVectorValues);
-
-    var YawPitchRollValues = new double[3];
-    pigeon2.getYawPitchRoll(YawPitchRollValues);
-
-    var RawGyroValues = new double[3];
-    pigeon2.getRawGyro(RawGyroValues);
-
-    var AccumGyroValues = new double[3];
-    pigeon2.getAccumGyro(AccumGyroValues);
-    */
   }
 
   @Override
@@ -52,4 +36,21 @@ public class GyroHandler extends SubsystemBase {
     return GravityVectorValues;
   }
 
+  public double[] get_YawPitchRollValues() {
+    var YawPitchRollValues = new double[3];
+    pigeon2.getYawPitchRoll(YawPitchRollValues);
+    return YawPitchRollValues;
+  }
+
+  public double[] get_RawGyroValues() {
+    var RawGyroValues = new double[3];
+    pigeon2.getRawGyro(RawGyroValues);
+    return RawGyroValues;
+  }
+
+  public double[] get_AccumGyroValues() {
+    var AccumGyroValues = new double[3];
+    pigeon2.getAccumGyro(AccumGyroValues);
+    return AccumGyroValues;
+  }
 }

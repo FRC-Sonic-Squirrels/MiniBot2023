@@ -60,8 +60,35 @@ public class GyroHandler extends SubsystemBase {
     return Quaternion6d;
   }
 
+  // ANYTHING BELOW IS ALL TESTING
+  // ANYTHING BELOW IS ALL TESTING
+  // ANYTHING BELOW IS ALL TESTING
+  // ANYTHING BELOW IS ALL TESTING
+
   public Vector<N3> Quaternion6dToRotationVector() {
     Quaternion PigeonQuaternion6d = new Quaternion(Quaternion6d[0], Quaternion6d[1], Quaternion6d[2], Quaternion6d[3]);
     return PigeonQuaternion6d.toRotationVector();
   }
+
+  public double[] getEulerFromQuaternion6d() {
+    // https://www.euclideanspace.com/maths/geometry/rotations/conversions/quaternionToEuler/indexLocal.htm
+    // https://www.euclideanspace.com/maths/standards/index.htm
+
+    double w = Quaternion6d[0];
+    double x = Quaternion6d[1];
+    double y = Quaternion6d[2];
+    double z = Quaternion6d[3];
+
+    double sqw = w*w;
+    double sqx = x*x;
+    double sqy = y*y;
+    double sqz = z*z;
+
+    var heading = Math.atan2(2.0 * (x*y + z*w),(sqx - sqy - sqz + sqw));
+    var bank = Math.atan2(2.0 * (y*z + x*w),(-sqx - sqy + sqz + sqw));
+    var attitude = Math.asin(-2.0 * (x*z - y*w));
+
+    double[] eulerAnglesFromQuaternion6d = {heading, attitude, bank};
+  return eulerAnglesFromQuaternion6d;
+}
 }

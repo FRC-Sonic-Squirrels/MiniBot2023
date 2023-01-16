@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants.  This class should not be used for any other purpose.  All constants should be
@@ -20,8 +22,10 @@ public final class Constants {
         public static final int LEFT_NEO_CANID = 2;
         public static final int RIGHT_NEO_CANID = 1;
         public static final int DRIVECONTROLLER_ID = 0;
+   
     }
     public static final class PWMPorts {
         public static final int kBlinkin = 0;
     }
 }
+

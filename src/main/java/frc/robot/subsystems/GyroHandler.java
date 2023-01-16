@@ -6,6 +6,9 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.sensors.WPI_Pigeon2;
 
+import edu.wpi.first.math.Vector;
+import edu.wpi.first.math.geometry.Quaternion;
+import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -19,6 +22,7 @@ public class GyroHandler extends SubsystemBase {
   private double[] YawPitchRollValues = {0.0, 0.0, 0.0};
   private double[] RawGyroValues = {0.0, 0.0, 0.0};
   private double[] AccumGyroValues = {0.0, 0.0, 0.0};
+  private double[] Quaternion6d = {0.0, 0.0, 0.0, 0.0};
 
   private GyroHandler() {}
 
@@ -29,10 +33,7 @@ public class GyroHandler extends SubsystemBase {
     pigeon2.getYawPitchRoll(YawPitchRollValues);
     pigeon2.getRawGyro(RawGyroValues);
     pigeon2.getAccumGyro(AccumGyroValues);
-  }
-
-  public short[] getBiasedAccelerometerValues(){
-    return BiasedAccelerometerValues;
+    pigeon2.get6dQuaternion(Quaternion6d);
   }
 
   public short[] get_BiasedAccelerometerValues() {
@@ -53,5 +54,14 @@ public class GyroHandler extends SubsystemBase {
   
   public double[] get_AccumGyroValues() {
       return AccumGyroValues;
+  }
+
+  public double[] get_Quaternion6d() {
+    return Quaternion6d;
+  }
+
+  public Vector<N3> Quaternion6dToRotationVector() {
+    Quaternion PigeonQuaternion6d = new Quaternion(Quaternion6d[0], Quaternion6d[1], Quaternion6d[2], Quaternion6d[3]);
+    return PigeonQuaternion6d.toRotationVector();
   }
 }

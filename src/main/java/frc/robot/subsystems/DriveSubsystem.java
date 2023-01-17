@@ -32,8 +32,10 @@ public class DriveSubsystem extends SubsystemBase {
   private MotorController leftSide;
   private MotorController rightSide;
   private DifferentialDrive drive;
+  public float currentGamePieceTarget = 1; // 0 for cube, 1 for cone
 
   public DriveSubsystem() {
+
     leftNEO = new CANSparkMax(Constants.DriveConstants.LEFT_NEO_CANID, MotorType.kBrushless);
     rightNEO = new CANSparkMax(Constants.DriveConstants.RIGHT_NEO_CANID, MotorType.kBrushless);
    
@@ -41,11 +43,13 @@ public class DriveSubsystem extends SubsystemBase {
     leftNEO.restoreFactoryDefaults();
     rightNEO.restoreFactoryDefaults();
 
+    leftNEO.setInverted(true);
+
     // assign each motor to a MotorControllerGroup
     leftSide = new MotorControllerGroup(leftNEO);
     rightSide = new MotorControllerGroup(rightNEO);
 
-    leftSide.setInverted(true);
+    //leftSide.setInverted(true);
 
     // create our DifferentialDrive class
     drive = new DifferentialDrive(leftSide, rightSide);
@@ -53,6 +57,26 @@ public class DriveSubsystem extends SubsystemBase {
   
   @Override
   public void periodic() {}
+
+  public float getGamePieceTarget() {
+    // 0 for cube, 1 for cone
+    return currentGamePieceTarget;
+  }
+
+  public void setGamePieceTarget(float setTo) {
+    // 0 for cube, 1 for cone
+    currentGamePieceTarget = setTo;
+  }
+
+  public void changeGamePieceTarget() {
+    // 0 for cube, 1 for cone
+    if (currentGamePieceTarget == 0) {
+      setGamePieceTarget(1);
+    }
+    else {
+      setGamePieceTarget(0);
+    }
+  }
 
   public void arcadeDrive(double xSpeed, double zRotation) {
     drive.arcadeDrive(xSpeed, zRotation);

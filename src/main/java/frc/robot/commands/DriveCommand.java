@@ -8,6 +8,7 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.DriveSubsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants;
@@ -43,6 +44,8 @@ public class DriveCommand extends CommandBase {
   @Override
   public void execute() {
     driveSubsystem.arcadeDrive(driveController.getLeftY()*DRIVEMULTIPLIER_SAFETY, driveController.getRightX()*DRIVEMULTIPLIER_SAFETY);
+    SmartDashboard.putNumber("DriveControllerLeftY", driveController.getLeftY()*DRIVEMULTIPLIER_SAFETY);
+    SmartDashboard.putNumber("DriveControllerRightX", driveController.getRightX()*DRIVEMULTIPLIER_SAFETY);
   }
 
   // Called once the command ends or is interrupted.

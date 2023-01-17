@@ -17,6 +17,7 @@ import frc.robot.commands.DriveCommand;
 import frc.robot.commands.Spin;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.Spinner;
+import frc.robot.subsystems.GyroHandler;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -29,6 +30,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveSubsystem driveSubsystem = new DriveSubsystem();
   private final Spinner spinner = new Spinner();
+  private final GyroHandler gyroHandler = new GyroHandler();
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.

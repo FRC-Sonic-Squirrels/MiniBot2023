@@ -4,11 +4,13 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.sensors.Pigeon2Configuration;
 import com.ctre.phoenix.sensors.WPI_Pigeon2;
 
 import edu.wpi.first.math.Vector;
 import edu.wpi.first.math.geometry.Quaternion;
 import edu.wpi.first.math.numbers.N3;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -17,14 +19,18 @@ public class GyroHandler extends SubsystemBase {
   private WPI_Pigeon2 pigeon2 = 
     new WPI_Pigeon2(Constants.DeviceConstants.PIGEON2_CANID);
 
+  
+
   private short[] BiasedAccelerometerValues = {0,0,0};
   private double[] GravityVectorValues = {0.0, 0.0, 0.0};
   private double[] YawPitchRollValues = {0.0, 0.0, 0.0};
   private double[] RawGyroValues = {0.0, 0.0, 0.0};
   private double[] AccumGyroValues = {0.0, 0.0, 0.0};
   private double[] Quaternion6d = {0.0, 0.0, 0.0, 0.0};
+  private double heading = Double.NaN;
 
-  private GyroHandler() {}
+  public GyroHandler() {
+  }
 
   @Override
   public void periodic() {
@@ -34,6 +40,17 @@ public class GyroHandler extends SubsystemBase {
     pigeon2.getRawGyro(RawGyroValues);
     pigeon2.getAccumGyro(AccumGyroValues);
     pigeon2.get6dQuaternion(Quaternion6d);
+
+    var euler = getEulerFromQuaternion6d();
+    if (Double.isNaN(heading))
+    {
+      heading = euler[0];
+    }
+
+    euler[0] -= heading;
+    SmartDashboard.putNumber("Quaternion6d_Heading", euler[0]*180/Math.PI);
+    SmartDashboard.putNumber("Quaternion6d_Attitude", euler[1]*180/Math.PI);
+    SmartDashboard.putNumber("Quaternion6d_Bank", euler[2]*180/Math.PI);
   }
 
   public short[] get_BiasedAccelerometerValues() {
@@ -90,5 +107,5 @@ public class GyroHandler extends SubsystemBase {
 
     double[] eulerAnglesFromQuaternion6d = {heading, attitude, bank};
   return eulerAnglesFromQuaternion6d;
-}
+  }
 }

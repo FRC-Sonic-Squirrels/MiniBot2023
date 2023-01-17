@@ -17,6 +17,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveSubsystem extends SubsystemBase {
   /**
@@ -38,6 +39,8 @@ public class DriveSubsystem extends SubsystemBase {
   private final RelativeEncoder m_righEncoder;
 
   private final double GEAR_RATIO = 1.0/18.0;
+  private double REVELUTIONS_TO_INCHES = GEAR_RATIO * (6.0 * Math.PI);
+
 
 
   public DriveSubsystem() {
@@ -48,9 +51,13 @@ public class DriveSubsystem extends SubsystemBase {
     leftNEO.restoreFactoryDefaults();
     rightNEO.restoreFactoryDefaults();
 
+    rightNEO.setInverted(true);
+
     // assign each motor to a MotorControllerGroup
     leftSide = new MotorControllerGroup(leftNEO);
     rightSide = new MotorControllerGroup(rightNEO);
+
+    //leftSide.setInverted(true);
 
     // create our DifferentialDrive class
     drive = new DifferentialDrive(leftSide, rightSide);
@@ -65,6 +72,8 @@ public class DriveSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+
+    SmartDashboard.putNumber("distanceTotal",getDistanceInInches());
   }
 
   public void arcadeDrive(double xSpeed, double zRotation) {
@@ -75,9 +84,11 @@ public class DriveSubsystem extends SubsystemBase {
     drive.tankDrive(leftSpeed, rightSpeed);
   }
   public double getDistanceInInches() {
-    double REVELUTIONS_TO_INCHES = GEAR_RATIO * (6.0 * Math.PI);
     double leftValue = m_lefEncoder.getPosition() * REVELUTIONS_TO_INCHES;
     double rightValue = m_righEncoder.getPosition() * REVELUTIONS_TO_INCHES;
+
+    SmartDashboard.putNumber("distanceLeft",leftValue );
+    SmartDashboard.putNumber("distanceRight",rightValue );
     return (leftValue + rightValue) /2;
   }
 }

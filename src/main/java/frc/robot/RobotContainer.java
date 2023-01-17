@@ -43,7 +43,7 @@ public class RobotContainer {
     m_driveSubsystem.setDefaultCommand(new DriveCommand(m_driveSubsystem, m_driveController));
 
     // default spinner command is to stop spinning
-    m_spinner.setDefaultCommand(new InstantCommand(() -> m_spinner.setPercentOutput(0.0)));
+    m_spinner.setDefaultCommand(new InstantCommand(() -> m_spinner.setPercentOutput(0.0),m_spinner));
   }
 
   /**
@@ -55,8 +55,8 @@ public class RobotContainer {
   private void configureButtonBindings() {
 
 //    new Button(m_driveController::getRightBumperPressed).toggleWhenPressed(new Spin(m_spinner));
-    new JoystickButton(m_driveController, XboxController.Button.kRightBumper.value).onTrue(new Spin(m_spinner));
-    new JoystickButton(m_driveController, XboxController.Button.kLeftBumper.value).onTrue(new DriveSetDistance(m_driveSubsystem));
+    new JoystickButton(m_driveController, XboxController.Button.kRightBumper.value).whileTrue(new Spin(m_spinner));
+    new JoystickButton(m_driveController, XboxController.Button.kLeftBumper.value).whileTrue(new DriveSetDistance(m_driveSubsystem));
 
 
   }

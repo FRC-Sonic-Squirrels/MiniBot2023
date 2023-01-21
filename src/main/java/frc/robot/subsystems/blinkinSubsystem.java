@@ -16,6 +16,9 @@ import frc.robot.Constants.PWMPorts;
 
 public class blinkinSubsystem extends SubsystemBase {
 
+/* Blinkin documentation https://www.revrobotics.com/content/docs/REV-11-1105-UM.pdf  
+*/
+
   /*
    * Rev Robotics blinkinSubsystem takes a PWM signal from 1000-2000us This is identical to
    * a SparkMax motor. -1 corresponds to 1000us 0 corresponds to 1500us +1

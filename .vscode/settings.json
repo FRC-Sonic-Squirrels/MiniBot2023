@@ -27,6 +27,7 @@
   ],
   "java.test.defaultConfig": "WPIlibUnitTests",
   "cSpell.words": [
+    "blinkin",
     "Brushless",
     "CANID",
     "DRIVECONTROLLER",

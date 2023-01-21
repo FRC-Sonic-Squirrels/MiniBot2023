@@ -39,7 +39,7 @@ public class DriveSubsystem extends SubsystemBase {
   private final RelativeEncoder m_righEncoder;
 
   private final double GEAR_RATIO = 1.0/18.0;
-  private double REVELUTIONS_TO_INCHES = GEAR_RATIO * (6.0 * Math.PI);
+  private double REVELUTIONS_TO_INCHES = GEAR_RATIO * (6.06250 * Math.PI);
 
 
 

@@ -16,17 +16,17 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
  * An example command that uses an example subsystem.
  */
 public class DriveCommand extends CommandBase {
-  private DriveSubsystem m_driveSubsystem;
-  private CommandXboxController m_driveController;
+  private DriveSubsystem driveSubsystem;
+  private XboxController driveController;
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public DriveCommand(DriveSubsystem driveSubsystem, CommandXboxController driveController) {
-    m_driveSubsystem = driveSubsystem;
-    m_driveController = driveController;
+  public DriveCommand(DriveSubsystem driveSubsystem, XboxController driveController) {
+    this.driveSubsystem = driveSubsystem;
+    this.driveController = driveController;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(driveSubsystem);
   }
@@ -39,7 +39,7 @@ public class DriveCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_driveSubsystem.arcadeDrive(-0.5*m_driveController.getLeftY(),-0.5* m_driveController.getRightX());
+    driveSubsystem.arcadeDrive(-0.5*driveController.getLeftY(),-0.5* driveController.getRightX());
   }
 
   // Called once the command ends or is interrupted.

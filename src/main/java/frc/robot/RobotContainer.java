@@ -10,10 +10,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.button.Button;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.Drivesetdistance;
@@ -30,20 +27,26 @@ import frc.robot.subsystems.Spinner;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
-  private final Spinner m_spinner = new Spinner();
+  private final DriveSubsystem driveSubsystem = new DriveSubsystem();
+  private final Spinner spinner = new Spinner();
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
-  private CommandXboxController m_driveController = new CommandXboxController(DriveConstants.DRIVECONTROLLER_ID);
-  private int Speed;
+  private XboxController controller = new XboxController(DriveConstants.DRIVECONTROLLER_ID);
+
+  private final JoystickButton spinnerButton =
+      new JoystickButton(controller, XboxController.Button.kRightBumper.value);
+
+  private JoystickButton xButton = 
+  new JoystickButton(controller, XboxController.Button.kX.value);
+
 
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
     
-    m_driveSubsystem.setDefaultCommand(new DriveCommand(m_driveSubsystem, m_driveController));
+    driveSubsystem.setDefaultCommand(new DriveCommand(driveSubsystem, controller));
 
     // default spinner command is to stop spinning
     //m_spinner.setDefaultCommand(new InstantCommand(() -> m_spinner.setPercentOutput(0.0)));
@@ -57,9 +60,11 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
 
-    Trigger xButton = m_driveController.x();
+    // spine while holding spinner button down
+    spinnerButton.onTrue(new Spin(spinner));
+    spinnerButton.onFalse(new InstantCommand(() -> spinner.setPercentOutput(0.0)));
 
-    xButton.onTrue(new Drivesetdistance(m_driveSubsystem, 9, .3));
+    xButton.onTrue(new Drivesetdistance(driveSubsystem, 9, .3));
     
   }
 
@@ -72,6 +77,6 @@ public class RobotContainer {
    */
   /*public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    //return m_autoCommand;
+    //return autoCommand;
   }*/
 }

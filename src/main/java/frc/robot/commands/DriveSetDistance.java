@@ -42,7 +42,7 @@ public class DriveSetDistance extends CommandBase {
     // if we dont give it an instruction for long enough it triggers motor safety
     // which is a protection system to make sure motors are always update in a
     // periodic manner
-    driveSubsystem.tankDrive(0.3,0.3);
+    driveSubsystem.arcadeDrive(0.3, 0);
     SmartDashboard.putNumber("distanceOffset", driveDistanceOffset);
     SmartDashboard.putNumber("driveDistance", driveDistance());
   }

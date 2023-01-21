@@ -57,7 +57,6 @@ public class DriveSubsystem extends SubsystemBase {
     leftSide = new MotorControllerGroup(leftNEO);
     rightSide = new MotorControllerGroup(rightNEO);
 
-    //leftSide.setInverted(true);
 
     // create our DifferentialDrive class
     drive = new DifferentialDrive(leftSide, rightSide);
@@ -89,6 +88,9 @@ public class DriveSubsystem extends SubsystemBase {
 
     SmartDashboard.putNumber("distanceLeft",leftValue );
     SmartDashboard.putNumber("distanceRight",rightValue );
+    SmartDashboard.putNumber("inchesPerSecond", (((m_lefEncoder.getVelocity()+m_righEncoder.getVelocity())/2)/REVELUTIONS_TO_INCHES)/60);
+    SmartDashboard.putNumber("RPM", (m_lefEncoder.getVelocity()+m_righEncoder.getVelocity())/2);
+    //RPM for 1"/s = 57.295779513 ; multiply this by however many inches ; might create a function to do this for me... maybe 
     return (leftValue + rightValue) /2;
   }
 }

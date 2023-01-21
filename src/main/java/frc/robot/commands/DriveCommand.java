@@ -10,20 +10,21 @@ package frc.robot.commands;
 import frc.robot.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 /**
  * An example command that uses an example subsystem.
  */
 public class DriveCommand extends CommandBase {
   private DriveSubsystem m_driveSubsystem;
-  private XboxController m_driveController;
+  private CommandXboxController m_driveController;
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public DriveCommand(DriveSubsystem driveSubsystem, XboxController driveController) {
+  public DriveCommand(DriveSubsystem driveSubsystem, CommandXboxController driveController) {
     m_driveSubsystem = driveSubsystem;
     m_driveController = driveController;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -38,7 +39,7 @@ public class DriveCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_driveSubsystem.arcadeDrive(m_driveController.getLeftY(), m_driveController.getRightX());
+    m_driveSubsystem.arcadeDrive(-0.5*m_driveController.getLeftY(),-0.5* m_driveController.getRightX());
   }
 
   // Called once the command ends or is interrupted.

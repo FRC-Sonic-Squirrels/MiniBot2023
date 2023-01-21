@@ -11,8 +11,12 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Button;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.commands.DriveCommand;
+import frc.robot.commands.Drivesetdistance;
 import frc.robot.commands.Spin;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.Spinner;
@@ -32,7 +36,8 @@ public class RobotContainer {
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
-  private XboxController m_driveController = new XboxController(DriveConstants.DRIVECONTROLLER_ID);
+  private CommandXboxController m_driveController = new CommandXboxController(DriveConstants.DRIVECONTROLLER_ID);
+  private int Speed;
 
   public RobotContainer() {
     // Configure the button bindings
@@ -41,7 +46,7 @@ public class RobotContainer {
     m_driveSubsystem.setDefaultCommand(new DriveCommand(m_driveSubsystem, m_driveController));
 
     // default spinner command is to stop spinning
-    m_spinner.setDefaultCommand(new InstantCommand(() -> m_spinner.setPercentOutput(0.0)));
+    //m_spinner.setDefaultCommand(new InstantCommand(() -> m_spinner.setPercentOutput(0.0)));
   }
 
   /**
@@ -52,8 +57,10 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
 
-    new Button(m_driveController::getRightBumperPressed).toggleWhenPressed(new Spin(m_spinner));
+    Trigger xButton = m_driveController.x();
 
+    xButton.onTrue(new Drivesetdistance(m_driveSubsystem, 9, .3));
+    
   }
 
 

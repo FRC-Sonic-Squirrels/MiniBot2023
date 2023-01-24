@@ -48,9 +48,9 @@ public class GyroHandler extends SubsystemBase {
     }
 
     euler[0] -= heading;
-    SmartDashboard.putNumber("Quaternion6d_Heading", euler[0]*180/Math.PI);
+    /* SmartDashboard.putNumber("Quaternion6d_Heading", euler[0]*180/Math.PI);
     SmartDashboard.putNumber("Quaternion6d_Attitude", euler[1]*180/Math.PI);
-    SmartDashboard.putNumber("Quaternion6d_Bank", euler[2]*180/Math.PI);
+    SmartDashboard.putNumber("Quaternion6d_Bank", euler[2]*180/Math.PI); */
   }
 
   public short[] get_BiasedAccelerometerValues() {

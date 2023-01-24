@@ -9,11 +9,15 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.commands.DriveCommand;
+import frc.robot.commands.DriveForward;
 import frc.robot.commands.Spin;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.Spinner;
@@ -73,6 +77,14 @@ public class RobotContainer {
     controller.rightBumper() // RB
       .onTrue(new Spin(spinner))
       .onFalse(Commands.runOnce(() -> spinner.setPercentOutput(0.0), spinner));
+
+    var UpKey = new Trigger(() -> SmartDashboard.getBoolean("2", false));
+    /*x.onTrue(new Spin(spinner))
+    .onFalse(Commands.runOnce(() -> spinner.setPercentOutput(0.0), spinner));*/
+    UpKey.toggleOnTrue(
+      new DriveForward(driveSubsystem, true)
+      );
+    
   }
 
 

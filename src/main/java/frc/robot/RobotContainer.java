@@ -78,13 +78,16 @@ public class RobotContainer {
       .onTrue(new Spin(spinner))
       .onFalse(Commands.runOnce(() -> spinner.setPercentOutput(0.0), spinner));
 
-    var UpKey = new Trigger(() -> SmartDashboard.getBoolean("2", false));
+    var UpKey = new Trigger(() -> SmartDashboard.getBoolean("/streamdeck/2", false));
+    var DownKey = new Trigger(() -> SmartDashboard.getBoolean("/streamdeck/7", false));
+    var LeftKey = new Trigger(() -> SmartDashboard.getBoolean("/streamdeck/6", false));
+    var RightKey = new Trigger(() -> SmartDashboard.getBoolean("/streamdeck/8", false));
     /*x.onTrue(new Spin(spinner))
     .onFalse(Commands.runOnce(() -> spinner.setPercentOutput(0.0), spinner));*/
-    UpKey.toggleOnTrue(
-      new DriveForward(driveSubsystem, true)
-      );
-    
+    UpKey.onTrue(new DriveForward(driveSubsystem, -0.6, 0)).onFalse(new DriveForward(driveSubsystem, 0.0, 0));
+    DownKey.onTrue(new DriveForward(driveSubsystem, 0.6, 0)).onFalse(new DriveForward(driveSubsystem, 0.0, 0));
+    LeftKey.onTrue(new DriveForward(driveSubsystem, 0.0, -0.6)).onFalse(new DriveForward(driveSubsystem, 0.0, 0));
+    RightKey.onTrue(new DriveForward(driveSubsystem, 0.0, 0.6)).onFalse(new DriveForward(driveSubsystem, 0.0, 0));
   }
 
 

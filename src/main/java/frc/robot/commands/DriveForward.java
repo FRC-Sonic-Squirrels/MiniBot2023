@@ -10,11 +10,13 @@ import frc.robot.subsystems.DriveSubsystem;
 
 public class DriveForward extends CommandBase {
   private DriveSubsystem driveSubsystem;
-  private boolean isSpeed;
+  private double Speed;
+  private double xSpeed;
   /** Creates a new DriveForward. */
-  public DriveForward(DriveSubsystem driveSubsystem, boolean isSpeed) {
+  public DriveForward(DriveSubsystem driveSubsystem, Double Speed, double xSpeed) {
     this.driveSubsystem = driveSubsystem;
-    this.isSpeed = isSpeed;
+    this.Speed = Speed;
+    this.xSpeed = xSpeed;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(driveSubsystem);
   }
@@ -26,9 +28,7 @@ public class DriveForward extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (isSpeed) {
-      driveSubsystem.tankDrive(.5, .5);
-    }
+      driveSubsystem.arcadeDrive(Speed, xSpeed);
   }
 
   // Called once the command ends or is interrupted.

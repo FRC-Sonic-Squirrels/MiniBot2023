@@ -18,6 +18,7 @@ public class DriveSetDistance extends CommandBase {
   // speed to travel at  
   private DriveSubsystem driveSubsystem;
   private double driveDistanceOffset;
+  private double maxSpeed;
 
   public DriveSetDistance(DriveSubsystem driveSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -42,7 +43,10 @@ public class DriveSetDistance extends CommandBase {
     // if we dont give it an instruction for long enough it triggers motor safety
     // which is a protection system to make sure motors are always update in a
     // periodic manner
-    driveSubsystem.arcadeDrive(0.3, 0);
+    maxSpeed = 0.5;
+    double sCurve = Math.pow(maxSpeed,2);
+
+    driveSubsystem.arcadeDrive(sCurve, 0);
     SmartDashboard.putNumber("distanceOffset", driveDistanceOffset);
     SmartDashboard.putNumber("driveDistance", driveDistance());
   }
@@ -61,7 +65,7 @@ public class DriveSetDistance extends CommandBase {
   @Override
   public boolean isFinished() {
     // should end when drive train encoder value is > than our goal
-    if (driveSubsystem.getDistanceInInches() - driveDistanceOffset >= Constants.DriveConstants.DRIVESETDISTANCEGOAL) {
+    if (driveDistance() >= Constants.DriveConstants.DRIVESETDISTANCEGOAL) {
       return true;
     }
     else {

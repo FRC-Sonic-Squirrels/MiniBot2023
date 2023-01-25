@@ -10,18 +10,18 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.commands.Drive;
 import frc.robot.commands.DriveCommand;
-import frc.robot.commands.DriveForward;
+import frc.robot.commands.OffsetElevatorCommand;
 import frc.robot.commands.Spin;
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.Spinner;
-import frc.robot.subsystems.GyroHandler;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -33,8 +33,8 @@ import frc.robot.subsystems.GyroHandler;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveSubsystem driveSubsystem = new DriveSubsystem();
+  private final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
   private final Spinner spinner = new Spinner();
-  private final GyroHandler gyroHandler = new GyroHandler();
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -73,21 +73,56 @@ public class RobotContainer {
       .onTrue(null)
       .onFalse(null);
     */
+    SmartDashboard.setDefaultBoolean("/streamdeck/0", false);
+    SmartDashboard.setDefaultBoolean("/streamdeck/1", false);
+    SmartDashboard.setDefaultBoolean("/streamdeck/2", false);
+    SmartDashboard.setDefaultBoolean("/streamdeck/3", false);
+    SmartDashboard.setDefaultBoolean("/streamdeck/4", false);
+    SmartDashboard.setDefaultBoolean("/streamdeck/5", false);
+    SmartDashboard.setDefaultBoolean("/streamdeck/6", false);
+    SmartDashboard.setDefaultBoolean("/streamdeck/7", false);
+    SmartDashboard.setDefaultBoolean("/streamdeck/8", false);
+    SmartDashboard.setDefaultBoolean("/streamdeck/9", false);
+    SmartDashboard.setDefaultBoolean("/streamdeck/10", false);
+    SmartDashboard.setDefaultBoolean("/streamdeck/11", false);
+    SmartDashboard.setDefaultBoolean("/streamdeck/12", false);
+    SmartDashboard.setDefaultBoolean("/streamdeck/13", false);
+    SmartDashboard.setDefaultBoolean("/streamdeck/14", false);
 
     controller.rightBumper() // RB
       .onTrue(new Spin(spinner))
       .onFalse(Commands.runOnce(() -> spinner.setPercentOutput(0.0), spinner));
 
-    var UpKey = new Trigger(() -> SmartDashboard.getBoolean("/streamdeck/2", false));
-    var DownKey = new Trigger(() -> SmartDashboard.getBoolean("/streamdeck/7", false));
-    var LeftKey = new Trigger(() -> SmartDashboard.getBoolean("/streamdeck/6", false));
-    var RightKey = new Trigger(() -> SmartDashboard.getBoolean("/streamdeck/8", false));
+    var UpKey = new Trigger(
+      () -> SmartDashboard.getBoolean("/streamdeck/2", false));
+    var DownKey = new Trigger(
+      () -> SmartDashboard.getBoolean("/streamdeck/7", false));
+    var LeftKey = new Trigger(
+      () -> SmartDashboard.getBoolean("/streamdeck/6", false));
+    var RightKey = new Trigger(
+      () -> SmartDashboard.getBoolean("/streamdeck/8", false));
+
+    var ExitKey = new Trigger(
+            () -> SmartDashboard.getBoolean("/streamdeck/14", false));
+      
     /*x.onTrue(new Spin(spinner))
     .onFalse(Commands.runOnce(() -> spinner.setPercentOutput(0.0), spinner));*/
-    UpKey.onTrue(new DriveForward(driveSubsystem, -0.6, 0)).onFalse(new DriveForward(driveSubsystem, 0.0, 0));
-    DownKey.onTrue(new DriveForward(driveSubsystem, 0.6, 0)).onFalse(new DriveForward(driveSubsystem, 0.0, 0));
-    LeftKey.onTrue(new DriveForward(driveSubsystem, 0.0, -0.6)).onFalse(new DriveForward(driveSubsystem, 0.0, 0));
-    RightKey.onTrue(new DriveForward(driveSubsystem, 0.0, 0.6)).onFalse(new DriveForward(driveSubsystem, 0.0, 0));
+    
+    UpKey
+    .onTrue(new Drive(driveSubsystem, -0.6, 0))
+    .onFalse(new Drive(driveSubsystem, 0.0, 0));
+    DownKey
+    .onTrue(new Drive(driveSubsystem, 0.6, 0))
+    .onFalse(new Drive(driveSubsystem, 0.0, 0));
+    LeftKey
+    .onTrue(new Drive(driveSubsystem, 0.0, -0.6))
+    .onFalse(new Drive(driveSubsystem, 0.0, 0));
+    RightKey
+    .onTrue(new Drive(driveSubsystem, 0.0, 0.6))
+    .onFalse(new Drive(driveSubsystem, 0.0, 0));
+
+    ExitKey
+            .whileTrue(new OffsetElevatorCommand(elevatorSubsystem, 1,10));
   }
 
 

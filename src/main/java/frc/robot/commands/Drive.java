@@ -8,12 +8,12 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.subsystems.DriveSubsystem;
 
-public class DriveForward extends CommandBase {
+public class Drive extends CommandBase {
   private DriveSubsystem driveSubsystem;
   private double Speed;
   private double xSpeed;
   /** Creates a new DriveForward. */
-  public DriveForward(DriveSubsystem driveSubsystem, Double Speed, double xSpeed) {
+  public Drive(DriveSubsystem driveSubsystem, Double Speed, double xSpeed) {
     this.driveSubsystem = driveSubsystem;
     this.Speed = Speed;
     this.xSpeed = xSpeed;

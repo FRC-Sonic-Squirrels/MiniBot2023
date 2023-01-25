@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class ElevatorSubsystem extends SubsystemBase {
 
@@ -15,7 +16,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     private WPI_TalonFX elevatorMotor1;
 
     public ElevatorSubsystem() {
-        elevatorMotor1 = new WPI_TalonFX(1);
+        elevatorMotor1 = new WPI_TalonFX(Constants.FALCONELEVATORTEST_ID);
         elevatorMotor1.set(0.0);
         elevatorMotor1.setSelectedSensorPosition(0);
     }

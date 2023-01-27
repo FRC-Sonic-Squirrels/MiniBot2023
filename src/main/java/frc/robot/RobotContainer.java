@@ -17,10 +17,8 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.commands.Drive;
 import frc.robot.commands.DriveCommand;
-import frc.robot.commands.OffsetElevatorCommand;
 import frc.robot.commands.Spin;
 import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.Spinner;
 
 /**
@@ -33,7 +31,6 @@ import frc.robot.subsystems.Spinner;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveSubsystem driveSubsystem = new DriveSubsystem();
-  private final ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
   private final Spinner spinner = new Spinner();
 
   /**
@@ -88,6 +85,9 @@ public class RobotContainer {
     SmartDashboard.setDefaultBoolean("/streamdeck/12", false);
     SmartDashboard.setDefaultBoolean("/streamdeck/13", false);
     SmartDashboard.setDefaultBoolean("/streamdeck/14", false);
+    SmartDashboard.setDefaultBoolean("/streamdeck/isCone", false);
+    SmartDashboard.setDefaultBoolean("/streamdeck/isCube", false);
+    SmartDashboard.setDefaultString("/streamdeck/target", "none");
 
     controller.rightBumper() // RB
       .onTrue(new Spin(spinner))
@@ -102,27 +102,35 @@ public class RobotContainer {
     var RightKey = new Trigger(
       () -> SmartDashboard.getBoolean("/streamdeck/8", false));
 
-    var ExitKey = new Trigger(
-            () -> SmartDashboard.getBoolean("/streamdeck/14", false));
+    var PrintKey = new Trigger(
+      () -> SmartDashboard.getBoolean("/streamdeck/14", false));
+
+    var CubeStatus = new Trigger(
+      () -> SmartDashboard.getBoolean("/streamdeck/isCube", false));
+    var ConeStatus = new Trigger(
+      () -> SmartDashboard.getBoolean("/streamdeck/isCone", false));
+
       
     /*x.onTrue(new Spin(spinner))
     .onFalse(Commands.runOnce(() -> spinner.setPercentOutput(0.0), spinner));*/
     
     UpKey
-    .onTrue(new Drive(driveSubsystem, -0.6, 0))
-    .onFalse(new Drive(driveSubsystem, 0.0, 0));
+    .whileTrue(new Drive(driveSubsystem, -0.6, 0))
+    .whileFalse(new Drive(driveSubsystem, 0.0, 0));
     DownKey
-    .onTrue(new Drive(driveSubsystem, 0.6, 0))
-    .onFalse(new Drive(driveSubsystem, 0.0, 0));
+    .whileTrue(new Drive(driveSubsystem, 0.6, 0))
+    .whileFalse(new Drive(driveSubsystem, 0.0, 0));
     LeftKey
-    .onTrue(new Drive(driveSubsystem, 0.0, -0.6))
-    .onFalse(new Drive(driveSubsystem, 0.0, 0));
+    .whileTrue(new Drive(driveSubsystem, 0.0, -0.6))
+    .whileFalse(new Drive(driveSubsystem, 0.0, 0));
     RightKey
-    .onTrue(new Drive(driveSubsystem, 0.0, 0.6))
-    .onFalse(new Drive(driveSubsystem, 0.0, 0));
+    .whileTrue(new Drive(driveSubsystem, 0.0, 0.6))
+    .whileFalse(new Drive(driveSubsystem, 0.0, 0));
 
-    ExitKey
-            .whileTrue(new OffsetElevatorCommand(elevatorSubsystem, 1,10));
+    PrintKey.onTrue(Commands.print("Print"));
+
+    CubeStatus.whileTrue(new Spin(spinner));
+    ConeStatus.whileTrue(new Spin(spinner));
   }
 
 

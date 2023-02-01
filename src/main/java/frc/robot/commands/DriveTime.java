@@ -4,25 +4,22 @@
 
 package frc.robot.commands;
 
-
-
-
-
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveSubsystem;
 
-public class Drivesetdistance extends CommandBase {
+public class DriveTime extends CommandBase {
   private DriveSubsystem drive;
-  private double distance;
+  private double seconds;
   private double speed;
-  private double offset;
-  /** Creates a new Drivesetdistance. */
-  public Drivesetdistance(DriveSubsystem drive, double dist, double speed) {
-  addRequirements(drive);
-  this.drive = drive;
-  distance = dist;
-  this.speed = speed;
+  private double startTime;
+  /** Creates a new DriveTime. */
+  public DriveTime(DriveSubsystem drive, double sec, double speed) {
+    addRequirements(drive);
+    this.drive = drive;
+    seconds = sec;
+    this.speed = speed;
 
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -30,37 +27,30 @@ public class Drivesetdistance extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    offset = drive.getDistanceInches();
-  }
-
+    startTime = Timer.getFPGATimestamp();
+      }
   // Called every time the scheduler runs while the command is scheduled.
-  /* (non-Javadoc)
-   * @see edu.wpi.first.wpilibj2.command.Command#execute()
-   */
   @Override
   public void execute() {
-drive.arcadeDrive(speed, 0);
-SmartDashboard.putNumber("driveDistance", drive.getDistanceInches() - offset);
+  drive.arcadeDrive(speed, 0);
 
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-drive.arcadeDrive(0, 0);
-
-
+    drive.arcadeDrive(0, 0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (drive.getDistanceInches()>= distance + offset){
+    if(startTime - Timer.getFPGATimestamp() >= seconds ){
       return true;
     }
     else {
-      return false;
+    return false;
     }
   }
 }
-//
+//done and (should be) good

@@ -15,6 +15,7 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.Drivesetdistance;
 import frc.robot.commands.Spin;
+import frc.robot.commands.TurnTimearcadedrive;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.Spinner;
 
@@ -40,7 +41,7 @@ public class RobotContainer {
 
   private JoystickButton xButton = 
   new JoystickButton(controller, XboxController.Button.kX.value);
-
+  
 
   public RobotContainer() {
     // Configure the button bindings
@@ -64,8 +65,8 @@ public class RobotContainer {
     spinnerButton.onTrue(new Spin(spinner));
     spinnerButton.onFalse(new InstantCommand(() -> spinner.setPercentOutput(0.0)));
 
-    xButton.onTrue(new Drivesetdistance(driveSubsystem, 9, .3));
-    
+    //xButton.onTrue(new Drivesetdistance(driveSubsystem, 9, .3));
+  xButton.onTrue(new TurnTimearcadedrive(driveSubsystem, 3, .5)); 
   }
 
 

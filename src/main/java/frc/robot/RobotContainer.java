@@ -10,8 +10,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.button.Button;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.Spin;
@@ -27,22 +26,25 @@ import frc.robot.subsystems.Spinner;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
-  private final Spinner m_spinner = new Spinner();
+  private final DriveSubsystem driveSubsystem = new DriveSubsystem();
+  private final Spinner spinner = new Spinner();
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
-  private XboxController m_driveController = new XboxController(DriveConstants.DRIVECONTROLLER_ID);
+  private XboxController controller = new XboxController(DriveConstants.DRIVECONTROLLER_ID);
+
+  private final JoystickButton spinnerButton =
+      new JoystickButton(controller, XboxController.Button.kRightBumper.value);
 
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
     
-    m_driveSubsystem.setDefaultCommand(new DriveCommand(m_driveSubsystem, m_driveController));
+    driveSubsystem.setDefaultCommand(new DriveCommand(driveSubsystem, controller));
 
     // default spinner command is to stop spinning
-    m_spinner.setDefaultCommand(new InstantCommand(() -> m_spinner.setPercentOutput(0.0)));
+    spinner.setDefaultCommand(new InstantCommand(() -> spinner.setPercentOutput(0.0)));
   }
 
   /**
@@ -53,7 +55,10 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
 
-    new Trigger(m_driveController::getRightBumperPressed).toggleOnTrue(new Spin(m_spinner));
+    // spine while holding spinner button down
+    spinnerButton.onTrue(new Spin(spinner));
+    spinnerButton.onFalse(new InstantCommand(() -> spinner.setPercentOutput(0.0)));
+
   }
 
 
@@ -65,6 +70,6 @@ public class RobotContainer {
    */
   /*public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    //return m_autoCommand;
+    //return autoCommand;
   }*/
 }

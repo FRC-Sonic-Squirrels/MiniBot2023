@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.Button;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.Spin;
@@ -52,8 +53,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
 
-    new Button(m_driveController::getRightBumperPressed).toggleWhenPressed(new Spin(m_spinner));
-
+    new Trigger(m_driveController::getRightBumperPressed).toggleOnTrue(new Spin(m_spinner));
   }
 
 
